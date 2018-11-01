@@ -1,0 +1,61 @@
+﻿body {
+    font-family: 微軟正黑體;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    overflow: auto;
+    background-color: #000000;
+    color: azure;
+}
+
+.title {
+    margin: 10px auto;
+    display: inline-block;
+}
+
+.menu {
+    overflow: auto;
+    list-style-type: none;
+    float: left;
+    padding-left: 10em;
+    background-color: #000000;
+}
+
+    .menu li {
+        left: 30%;
+        display: inline-block;
+        float: left;
+        width: 7em;
+        text-align: center;
+    }
+
+        .menu li a {
+            width: 100%;
+            line-height: 3em;
+            color: aliceblue;
+            text-decoration: none;
+        }
+
+            .menu li a:hover {
+                color: yellow;
+            }
+
+.content {
+    overflow: auto;
+    width: 100%;
+    padding-bottom: 20px; 
+    margin-top:30px;
+}
+
+footer {
+    width: 100%;
+    line-height: 2.5em;
+    text-align: center;
+    color: #ffffff;
+    background-color: #000000;
+}

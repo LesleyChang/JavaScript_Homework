@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>九九乘法表</title>
+    <link rel="stylesheet" href="css/main.css" />
+    <style>      
+        table {
+            background-color: rgb(190, 234, 248);
+            border: 2px solid #5c6566;
+            margin: 20px auto;
+        }
+
+        td {
+            padding: 10px;
+            border: 1px solid #8f9394;
+            display: inline-block;
+            margin: 3px;
+            background-color: #ffffff;
+        }
+    </style>
+    <script>
+        function Init() {
+            var _tableHeader = document.getElementById("tableHeading");
+            var _table = document.getElementById("multi-table");
+            _tableHeader.textContent = "九九乘法表";
+            _tableHeader.style.textAlign = "center";
+            _tableHeader.style.marginTop = "30px";
+            var str = new String("<tr>");
+            for (var i = 2; i < 10; i++) {
+                str += "<td>";
+                for (var j = 1; j < 10; j++) {
+                    str += i + " * " + j + " = " + i * j + "<br>";
+                }
+                str += "</td>";
+            }
+            str += "</tr>";
+            _table.innerHTML = str;
+        }
+        //window.addEventListener("load", Init, false);
+        document.addEventListener("DOMContentLoaded", Init, true);
+    </script>
+</head>
+<body>
+    <div id="#allpage">
+        <header>
+            <div class="header">
+                <h1 class="title">JavaScriptHomework</h1><br>
+                <nav>
+                    <ul class="menu">
+                        <li><a href="index.html">回首頁</a></li>
+                        <li><a href="index_P1_multi-table.html">九九乘法表</a></li>
+                        <li><a href="index_P2_form.html">表單欄位驗證</a></li>
+                        <li><a href="index_P3_score.html">評價</a></li>
+                        <li><a href="#">廣告輪播</a></li>
+                        <li><a href="#">選擇日曆</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <div class="content">
+            <article>
+                <section>
+                    <h2 id="tableHeading"></h2>
+                    <table id="multi-table"></table>
+                </section>                
+            </article>
+        </div>
+
+        <!--<footer>
+            <p style="color:lightgray">
+                E-mail:b01504074@gmail.com &nbsp; MSIT12003
+            </p>
+        </footer>-->
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,200 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>表單欄位驗證</title>
+    <link rel="stylesheet" href="css/main.css" />
+    <style>
+        fieldset {
+            width: 500px;
+            border: 1px #c2c2c2 inset;
+            border-radius: 15px;
+            margin: 30px auto;
+        }
+
+        .st1 {
+            width: 500px;
+            /* border-bottom: 1px #ccc9c9 solid; */
+            padding: 10px 0px;
+        }
+
+            .st1 p {
+                color: gray;
+                font-size: 80%;
+                margin-left: 50px;
+            }
+
+            .st1 span {
+                font-size: 90%;
+            }
+
+        .sub {
+            width: 500px;
+            margin: 20px;
+            text-align: center;
+        }
+
+            .sub input {
+                padding: 5px 10px;
+            }
+
+        .t1 {
+            text-align: left;
+            float: left;
+            margin-left: 50px;
+            margin-right: 10px;
+        }
+    </style>
+    <script>
+        function CheckName() {
+            var _name = new String(document.getElementById("name1").value);
+            var warnObj = document.getElementById("nameAlarm");
+            if (_name.length == 0) {
+                warnObj.innerHTML = "<img src=\"Images/cancel.png\" />姓名不可為空白";
+                warnObj.style.color = "#FF0000";
+                return false;
+            }
+            else if (_name.length < 2) {
+                //warnObj.value = "姓名字數需大於2"
+                warnObj.innerHTML = "<img src=\"Images/cancel.png\" />姓名字數需大於2";
+                warnObj.style.color = "#FF0000";
+                return false;
+            }
+            for (var i = 0; i < _name.length; i++) {
+                var _char = _name.charAt(i);
+                if (_char.charCodeAt(0) < 0x4e00 || _char.charCodeAt(0) > 0x9fff) {
+                    //warnObj.value = "姓名需全部為中文字"
+                    warnObj.innerHTML = "<img src=\"Images/cancel.png\" />姓名需全部為中文字";
+                    warnObj.style.color = "#FF0000";
+                    return false;
+                }
+            }
+
+
+            warnObj.innerHTML = "<img src=\"Images/checked.png\" />可使用的姓名"
+            warnObj.style.color = "#000000";
+            return true;
+        }
+        function CheckPassword() {
+            var _pwd = new String(document.getElementById("pwd1").value);
+            var warnObj = document.getElementById("pwdAlarm");
+            isAnyNum = false;
+            isAnyAlphabet = false;
+            isAnySpecial = false;
+
+            if (_pwd.length == 0) {
+                warnObj.innerHTML = "<img src=\"Images/cancel.png\" />密碼不可為空白"
+                warnObj.style.color = "#FF0000";
+                return false;
+            } else if (_pwd.length < 6) {
+                warnObj.innerHTML = "<img src=\"Images/cancel.png\" />密碼字數需大於6"
+                warnObj.style.color = "#FF0000";
+                return false;
+            }
+            for (var i = 0; i < _pwd.length; i++) {
+                var _char = _pwd.charAt(i);
+                if (_char >= 0 && _char <= 9)
+                    isAnyNum = true;
+                if (_char.toUpperCase() >= 'A' && _char.toUpperCase() <= 'Z')
+                    isAnyAlphabet = true;
+                if (_char == '!' || _char == '@' || _char == '#' || _char == '$' || _char == '%' || _char == '^' || _char == '&' || _char == '*')
+                    isAnySpecial = true;
+                if (isAnyAlphabet && isAnyNum && isAnySpecial) break;
+            }
+            if (isAnyAlphabet && isAnyNum && isAnySpecial) {
+                warnObj.innerHTML = "<img src=\"Images/checked.png\" /> 可使用的密碼";
+                warnObj.style.color = "#000000";
+                return true;
+            } else {
+                warnObj.innerHTML = "<img src=\"Images/cancel.png\" />需包含英文字母、數字、特殊字元";
+                warnObj.style.color = "#FF0000";
+                return false;
+            }
+        }
+        function CheckDate() {
+            var _date = Date.parse(new String(document.getElementById("date1").value));
+            var warnObj = document.getElementById("dateAlarm");
+            if (isNaN(_date)) {
+                warnObj.innerHTML = "<img src=\"Images/cancel.png\" />日期不正確(invalid)"
+                warnObj.style.color = "#FF0000";
+                return false;
+            }
+            else {
+                warnObj.innerHTML = "<img src=\"Images/checked.png\" />正確日期";
+                warnObj.style.color = "#000000";
+                return true;
+            }
+        }
+        function CleanAlarm() {
+            var allSpan = document.getElementsByTagName("span");    //要全部的element>> .getElementByTagName("*")
+            for (var i = 0; i < allSpan.length; i++) {
+                var _span = allSpan[i];
+                _span.innerHTML = "";
+            }
+        }
+        function CheckAllInput() {
+            if (CheckName() && CheckPassword() && CheckDate())
+                return true;
+            else {
+                alert("輸入錯誤，請重新檢查");
+                return false;
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="#allpage">
+        <header>
+            <div class="header">
+                <h1 class="title">JavaScriptHomework</h1><br>
+                <nav>
+                    <ul class="menu">
+                        <li><a href="index.html">回首頁</a></li>
+                        <li><a href="index_P1_multi-table.html">九九乘法表</a></li>
+                        <li><a href="index_P2_form.html">表單欄位驗證</a></li>
+                        <li><a href="index_P3_score.html">評價</a></li>
+                        <li><a href="#">廣告輪播</a></li>
+                        <li><a href="#">選擇日曆</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <div class="content">
+            <article>
+                <form onsubmit="return CheckAllInput(this)">
+                    <fieldset>
+                        <legend> Form Check </legend>
+                        <div class="st1">
+                            <label for="name1" class="t1">姓名: </label>
+                            <input type="text" id="name1" name="name1" autofocus size="16" onfocusout="CheckName()"> &nbsp;&nbsp;<span id="nameAlarm"></span><!--<input id="nameAlarm" style="border:0px; color:orangered;" readonly />-->
+                            <p>(1.不可空白  2.至少兩個字以上  3.必須全部為中文字)</p>
+                        </div>
+                        <div class="st1">
+                            <label for="pwd1" class="t1">密碼: </label>
+                            <input type="password" id="pwd1" name="pwd1" size="16" onfocusout="CheckPassword()"> &nbsp;&nbsp;<span id="pwdAlarm"></span>
+                            <p>(1.不可空白  2.至少6個字且必須包含英文字母、數字、特殊字元[!@#$%^&*])</p>
+                        </div>
+                        <div class="st1">
+                            <label for="date1" class="t1">日期:</label>
+                            <input type="text" id="date1" name="date1" size="22" onfocusout="CheckDate()" placeholder="yyyy/mm/dd"> &nbsp;&nbsp;<span id="dateAlarm"></span>
+                        </div>
+                        <div class="sub">
+                            <input type="submit" value="送出" />
+                            <input type="reset" value="清除" onclick="CleanAlarm();" />
+                        </div>
+                    </fieldset>
+
+                </form>
+
+            </article>
+        </div>
+
+        <!--<footer>
+            <p style="color:lightgray">
+                E-mail:b01504074@gmail.com &nbsp; MSIT12003
+            </p>
+        </footer>-->
+
+    </div>
+</body>
+</html>
