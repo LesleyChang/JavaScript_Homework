@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>首頁</title>
+    <link rel="stylesheet" href="css/main.css" />
+    <script>
+        function InitSelects() {
+            var yearObj = document.getElementById("yearSelect");
+            var monthObj = document.getElementById("monthSelect");
+            var dateObj = document.getElementById("dateSelect");
+            for (var i = 2010; i <= 2020; i++) {
+                var _option = document.createElement("option");
+                _option.innerText = i;
+                _option.value = i;
+                yearObj.appendChild(_option);
+            }
+            for (var i = 1; i <= 12; i++) {
+                var _option = document.createElement("option");
+                _option.innerText = i;
+                _option.value = i;
+                monthObj.appendChild(_option);
+            }
+            yearObj.addEventListener("change", SetDateSelect);
+            monthObj.addEventListener("change", SetDateSelect);
+            var today = new Date();
+            yearObj.value = today.getFullYear();
+            monthObj.value = today.getMonth() + 1;   //????
+            //dateObj.value = today.getDate();
+            SetDateSelect();
+            dateObj.value = today.getDate();
+            ShowDate();
+        }
+        function SetDateSelect() {
+            var yearObj = document.getElementById("yearSelect");
+            var monthObj = document.getElementById("monthSelect");
+            var dateObj = document.getElementById("dateSelect");
+            dateObj.innerHTML = "";
+            var _year = yearObj.value;
+            var _month = monthObj.value;
+            var days = (new Date(_year, _month, 0)).getDate();   //get nums of day
+            for (var i = 1; i <= days; i++) {
+                var _option = document.createElement("option");
+                _option.innerText = i;
+                _option.value = i;
+                dateObj.appendChild(_option);
+            }
+        }
+        function ShowDate() {
+            var yearObj = document.getElementById("yearSelect");
+            var monthObj = document.getElementById("monthSelect");
+            var dateObj = document.getElementById("dateSelect");
+            var _dateResult = document.getElementById("dateResult");
+            _dateResult.innerText = yearObj.value + "年 " + monthObj.value + "月 " + dateObj.value + "日";
+        }
+
+        document.addEventListener("DOMContentLoaded", InitSelects);
+        document.addEventListener("DOMContentLoaded", function () {
+            var selects = document.getElementsByTagName("select");
+            for (var i = 0; i < selects.length; i++) {
+                selects[i].addEventListener("change", ShowDate);
+            } 
+        });
+    </script>
+
+</head>
+<body>
+    <div id="#allpage">
+        <header>
+            <div class="header">
+                <h1 class="title">JavaScriptHomework</h1><br>
+                <nav>
+                    <ul class="menu">
+                        <li><a href="index.html">回首頁</a></li>
+                        <li><a href="index_P1_multi-table.html">九九乘法表</a></li>
+                        <li><a href="index_P2_form.html">表單欄位驗證</a></li>
+                        <li><a href="index_P3_score.html">評價</a></li>
+                        <li><a href="index_P4_ads.html">廣告輪播</a></li>
+                        <li><a href="index_P5_calendar.html">選擇日曆</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <div class="content">
+            <article>
+                <h2>Welcome</h2>
+                <select id="yearSelect"></select>年 &nbsp;
+                <select id="monthSelect"></select>月 &nbsp;
+                <select id="dateSelect"></select>日 &nbsp;
+                <div>
+                    <table>
+                        <tr><td><h2>Information</h2></td></tr>
+                        <tr><td>您選擇的日期是&nbsp;<span id="dateResult"></span></td></tr>
+                    </table>
+                </div>
+            </article>
+            <aside></aside>
+        </div>
+
+        <!--<footer>
+            <p style="color:lightgray">
+                E-mail:b01504074@gmail.com &nbsp; MSIT12003
+            </p>
+        </footer>-->
+
+    </div>
+</body>
+</html>

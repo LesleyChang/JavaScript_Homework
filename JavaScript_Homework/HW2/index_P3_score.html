@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <title>評價</title>
     <link rel="stylesheet" href="css/main.css" />
+    <link rel="icon" href="Images/canned-food.png" />
     <style>
         .gray {
             -webkit-filter: grayscale(1);
@@ -12,18 +13,21 @@
         .color {
             -webkit-filter: grayscale(0);
         }
-        .mainSection{
-            text-align:center;
-        }
-        .mainSection h2{
-            //margin-top:20px;
-        }
 
-        .mainSection div {
-            display: inline-block;
-            margin: 20px auto;
-            overflow: auto;
+        .mainSection {
+            text-align: center;
         }
+            
+
+            .mainSection div {
+                display: inline-block;
+                margin: 20px auto;
+                overflow: auto;
+                padding: 0px 10px;
+            }
+        /*input {
+            padding: 5px 10px;
+        }*/
     </style>
     <script>
         function TurnColor() {
@@ -31,7 +35,7 @@
                 var str = new String("img" + i);
                 document.getElementById(str).className = "color";
             }
-            
+
         }
         function TurnGray() {
             for (var i = this.value; i > 0; i--) {
@@ -40,18 +44,39 @@
             }
         }
         function ShowResult() {
-            document.getElementById("scoreboard").innerText = "給了 " + this.value + " 個罐罐 (= ↀωↀ =)";
+            document.getElementById("scoreboard").innerText = "獲得 " + this.value + " 個罐罐 (= ↀωↀ =)";
             for (var i = 1; i < 6; i++) {
                 var str = new String("img" + i);
                 document.getElementById(str).removeEventListener("mouseenter", ShowQty, false);
                 document.getElementById(str).removeEventListener("mouseleave", HideQty, false);
                 document.getElementById(str).removeEventListener("mouseenter", TurnColor, false);
                 document.getElementById(str).removeEventListener("mouseleave", TurnGray, false);
-                document.getElementById(str).removeEventListener("click", ShowResult, false);                
+                document.getElementById(str).removeEventListener("click", ShowResult, false);
             }
+            ShowResetBtn();
         }
         function ShowQty() { document.getElementById("scoreboard").innerText = this.value + " 個罐罐"; }
         function HideQty() { document.getElementById("scoreboard").innerText = ""; }
+        function ShowResetBtn() {
+            var resetBtn = document.createElement("input");
+            resetBtn.type = "button";
+            resetBtn.value = "reset";
+            resetBtn.style.padding = "10px 20px";
+            resetBtn.style.marginTop = "10px";
+            resetBtn.style.border = "0px";
+            resetBtn.style.fontWeight = "700";
+            resetBtn.addEventListener("click", Init);
+            resetBtn.addEventListener("click", DeleteResetBtn);
+            document.getElementById("scoreboard").insertAdjacentElement("afterend", resetBtn);
+        }
+        function DeleteResetBtn() {
+            HideQty();
+            for (var i = 1; i < 6; i++) {
+                var str = new String("img" + i);
+                document.getElementById(str).className = "gray";
+            }
+            this.remove();
+        }
         function Init() {
             for (var i = 1; i < 6; i++) {
                 var str = new String("img" + i);
@@ -78,8 +103,8 @@
                         <li><a href="index_P1_multi-table.html">九九乘法表</a></li>
                         <li><a href="index_P2_form.html">表單欄位驗證</a></li>
                         <li><a href="index_P3_score.html">評價</a></li>
-                        <li><a href="#">廣告輪播</a></li>
-                        <li><a href="#">選擇日曆</a></li>
+                        <li><a href="index_P4_ads.html">廣告輪播</a></li>
+                        <li><a href="index_P5_calendar.html">選擇日曆</a></li>
                     </ul>
                 </nav>
             </div>
@@ -88,8 +113,8 @@
             <article>
                 <section class="mainSection">
                     <!--<h2>評分系統</h2>-->
-                    <img src="Images/grey-cat-with-bowl-istockphoto.jpg" width="400" style="margin-top:30px;"/><br>
-                    <div >
+                    <img src="Images/grey-cat-with-bowl-istockphoto.jpg" width="400" style="margin-top:10px;" /><br>
+                    <div>
                         <img id="img1" class="gray" src="Images/canned-food.png" width="100" />
                         <img id="img2" class="gray" src="Images/canned-food.png" width="100" />
                         <img id="img3" class="gray" src="Images/canned-food.png" width="100" />
