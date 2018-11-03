@@ -3,35 +3,106 @@
 <head>
     <meta charset="utf-8" />
     <title>廣告輪播</title>
+    <link href="Images/ads.png" rel="icon" />
     <link rel="stylesheet" href="css/main.css" />
     <style>
+        .content {
+            text-align: center;
+            overflow: auto;
+            margin: 0px auto;
+            padding-top:30px;
+            display: inline-block;
+            background-color:#c2c2c2;
+        }
+
         .iconMenu {
             overflow: auto;
             list-style-type: none;
-            float: left;
-            background-color: #000000;
+            margin: 10px auto;
+            display: inline-block;
         }
-            .iconMenu li {                
+
+            .iconMenu li {
                 display: inline-block;
                 float: left;
                 width: 2em;
                 text-align: center;
             }
-
-                .iconMenu li a {
-                    width: 100%;
-                    height:100%;                    
-                }
-
-                    .iconMenu li a:hover {
-                        background-color: #ffd800;
-                    }
-        li .active{
-            background-color:cyan;
-        }
     </style>
     <script>
-        
+        var currentIndex = 0;
+        var _setInterval;
+        var productList;    //Array to store src、href、title
+
+        function InitProductList() {
+            var _src = ["P1_coat", "P2_lightCoat", "P3_knit", "P4_shirt", "P5_warmPants"];
+            var _href = ["men/outer/jacket-and-coat/?ref=awslink", "ultralightdownspecial/men/", "knitspecial/women/?ref=_pccover",
+                "men/tops/dress-shirts-long-and-short/?ref=_navi_1016", "warmpantsspecial/men/"];
+            var _title = ["舒適外套、大衣", "特級極輕羽絨", "knit 針織衫/開襟外套", "商務襯衫", "暖褲 GO WARM"];
+            productList = new Array();
+            for (var i = 0; i < _src.length; i++) {
+                productList[i] = {
+                    product_src: "Images/Uniqlo/" + _src[i] + ".jpg",
+                    product_href: "http://www.uniqlo.com/tw/store/feature/" + _href[i],
+                    product_title: _title[i],
+                };
+            }
+        }
+        function InitIcon() {
+            var _iconLinks = document.getElementsByName("iconLinks");
+            for (var i = 0; i < _iconLinks.length; i++) {
+                var _img = document.createElement("img");
+                _img.id = "icon" + i;
+                _img.src = "Images/circle_gray.png"
+                _img.width = "16";
+                _iconLinks[i].appendChild(_img);
+            }
+
+        }
+        function ShowCurrent() {
+
+            if (currentIndex > productList.length)
+                currentIndex = 0;
+            document.getElementById("idMainImg").src = productList[currentIndex].product_src;
+            document.getElementById("idLinkToUniqlo").href = productList[currentIndex].product_href;
+            document.getElementById("idLinkToUniqlo").title = productList[currentIndex].product_title;
+            for (var i = 0; i < productList.length; i++) {
+                document.getElementById("icon" + i).src = "Images/circle_gray.png";
+            }
+            document.getElementById("icon" + currentIndex).src = "Images/circle_black.png";
+        }
+        function PauseInterval() {
+            if (_setInterval)
+                window.clearInterval(_setInterval);
+        }
+        function SetInterval() {
+            _setInterval = window.setInterval(function () {
+                currentIndex++;
+                ShowCurrent();
+            }, 1500);
+        }
+        function LocationChange() {
+            location.href = productList[currentIndex].product_href;
+        }
+
+        InitProductList();
+        SetInterval();
+
+        document.addEventListener("DOMContentLoaded", function () {
+            InitIcon();
+            document.getElementById("idLinkToUniqlo").addEventListener("mouseenter", PauseInterval);
+            document.getElementById("idLinkToUniqlo").addEventListener("mouseleave", SetInterval);
+            for (var i = 0; i < productList.length; i++) {
+                document.getElementById("icon" + i).addEventListener("mouseenter", function () {
+                    currentIndex = parseInt(this.id.substr(4));
+                    ShowCurrent();
+                    PauseInterval();
+                });
+                document.getElementById("icon" + i).addEventListener("mouseleave", SetInterval);
+                document.getElementById("icon" + i).addEventListener("click", LocationChange);
+            }
+            document.getElementById("icon0").src = "Images/circle_black.png";
+        });
     </script>
 
 </head>
@@ -54,24 +125,22 @@
         </header>
         <div class="content">
             <article>
-                <div>
-                    <img id=""/>
-                    <ul class="iconMenu">
-                        <li><a href="#"><img src="Images/checked.png" /></a></li>
-                        <li><a href="#"><img src="Images/checked.png" /></a></li>
-                        <li><a href="#"><img src="Images/checked.png" /></a></li>
-                        <li><a href="#"><img src="Images/checked.png" /></a></li>
-                        <li><a href="#"><img src="Images/checked.png" /></a></li>
-                    </ul>
-                </div>
+                <a id="idLinkToUniqlo" href="http://www.uniqlo.com/tw/store/feature/blocktechspecial/men/?ref=pccover" title="舒適外套、大衣"><img id="idMainImg" src="Images/Uniqlo/P1_coat.jpg" /></a><br>
+                <ul class="iconMenu">
+                    <li id="iconLink0" name="iconLinks"></li>
+                    <li id="iconLink1" name="iconLinks"></li>
+                    <li id="iconLink2" name="iconLinks"></li>
+                    <li id="iconLink3" name="iconLinks"></li>
+                    <li id="iconLink4" name="iconLinks"></li>
+                </ul>
             </article>
         </div>
 
-        <!--<footer>
+        <footer>
             <p style="color:lightgray">
-                E-mail:b01504074@gmail.com &nbsp; MSIT12003
+                <br><br><br>
             </p>
-        </footer>-->
+        </footer>
 
     </div>
 </body>

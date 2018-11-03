@@ -55,7 +55,7 @@
 footer {
     width: 100%;
     line-height: 2.5em;
-    text-align: center;
-    color: #ffffff;
+    text-align: center;    
     background-color: #000000;
+    margin:0px 0px;
 }
