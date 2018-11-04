@@ -6,13 +6,15 @@
     <link href="Images/ads.png" rel="icon" />
     <link rel="stylesheet" href="css/main.css" />
     <style>
+        body {
+            background-color: #c2c2c2;
+        }
         .content {
             text-align: center;
             overflow: auto;
             margin: 0px auto;
             padding-top:30px;
-            display: inline-block;
-            background-color:#c2c2c2;
+            display: inline-block;            
         }
 
         .iconMenu {
@@ -44,20 +46,19 @@
                 productList[i] = {
                     product_src: "Images/Uniqlo/" + _src[i] + ".jpg",
                     product_href: "http://www.uniqlo.com/tw/store/feature/" + _href[i],
-                    product_title: _title[i],
+                    product_title: _title[i]
                 };
             }
         }
         function InitIcon() {
-            var _iconLinks = document.getElementsByName("iconLinks");
-            for (var i = 0; i < _iconLinks.length; i++) {
-                var _img = document.createElement("img");
-                _img.id = "icon" + i;
-                _img.src = "Images/circle_gray.png"
-                _img.width = "16";
-                _iconLinks[i].appendChild(_img);
+            var _iconMenu = document.getElementById("idIconMenu");
+            var _str = "";
+            for (var i = 0; i < productList.length; i++) {
+                _str += '<li><a id="iconLink' + i + '" name="iconLinks" href="' + productList[i].product_href +
+                    '" title="' + productList[i].product_title + '">' +
+                    '<img id="icon' + i + '" src="Images/circle_gray.png" width="16"/></a></li>';
             }
-
+            _iconMenu.innerHTML = _str;         
         }
         function ShowCurrent() {
 
@@ -81,9 +82,7 @@
                 ShowCurrent();
             }, 1500);
         }
-        function LocationChange() {
-            location.href = productList[currentIndex].product_href;
-        }
+        
 
         InitProductList();
         SetInterval();
@@ -98,8 +97,7 @@
                     ShowCurrent();
                     PauseInterval();
                 });
-                document.getElementById("icon" + i).addEventListener("mouseleave", SetInterval);
-                document.getElementById("icon" + i).addEventListener("click", LocationChange);
+                document.getElementById("icon" + i).addEventListener("mouseleave", SetInterval);                
             }
             document.getElementById("icon0").src = "Images/circle_black.png";
         });
@@ -126,12 +124,7 @@
         <div class="content">
             <article>
                 <a id="idLinkToUniqlo" href="http://www.uniqlo.com/tw/store/feature/blocktechspecial/men/?ref=pccover" title="舒適外套、大衣"><img id="idMainImg" src="Images/Uniqlo/P1_coat.jpg" /></a><br>
-                <ul class="iconMenu">
-                    <li id="iconLink0" name="iconLinks"></li>
-                    <li id="iconLink1" name="iconLinks"></li>
-                    <li id="iconLink2" name="iconLinks"></li>
-                    <li id="iconLink3" name="iconLinks"></li>
-                    <li id="iconLink4" name="iconLinks"></li>
+                <ul class="iconMenu" id="idIconMenu">                    
                 </ul>
             </article>
         </div>
