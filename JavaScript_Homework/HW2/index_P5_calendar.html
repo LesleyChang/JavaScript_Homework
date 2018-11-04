@@ -60,10 +60,31 @@
             var selects = document.getElementsByTagName("select");
             for (var i = 0; i < selects.length; i++) {
                 selects[i].addEventListener("change", ShowDate);
-            } 
+            }            
         });
     </script>
-
+    <style>
+        body {
+            background-color: #c2c2c2;            
+        }
+        .content {
+            overflow:auto;
+            display: inline-block;                        
+            text-align:center;
+            padding:30px 0px;
+        }
+        fieldset {            
+            text-align: left;
+            display: inline;
+            width: 400px;
+            border: 0px;
+            padding: 20px 20px 50px 20px;
+            background-color: aliceblue;
+            line-height: 3em;
+            margin:0px 20px;
+        } 
+        
+    </style>
 </head>
 <body>
     <div id="#allpage">
@@ -84,18 +105,18 @@
         </header>
         <div class="content">
             <article>
-                <h2>Welcome</h2>
-                <select id="yearSelect"></select>年 &nbsp;
-                <select id="monthSelect"></select>月 &nbsp;
-                <select id="dateSelect"></select>日 &nbsp;
-                <div>
-                    <table>
-                        <tr><td><h2>Information</h2></td></tr>
-                        <tr><td>您選擇的日期是&nbsp;<span id="dateResult"></span></td></tr>
-                    </table>
-                </div>
-            </article>
-            <aside></aside>
+                <fieldset>
+                    <h2>Welcome</h2>
+                    <select id="yearSelect"></select>年 &nbsp;
+                    <select id="monthSelect"></select>月 &nbsp;
+                    <select id="dateSelect"></select>日 &nbsp;
+                </fieldset>
+                <fieldset>
+                    <h2>Information</h2>
+                    您選擇的日期是&nbsp;<span id="dateResult"></span>
+                </fieldset>
+
+            </article>            
         </div>
 
         <!--<footer>
