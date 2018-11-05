@@ -13,11 +13,10 @@
             margin: 30px auto;
         }
         .content{
-            padding-bottom:10em;
+            padding-bottom:12em;
         }
         .st1 {
             width: 500px;
-            /* border-bottom: 1px #ccc9c9 solid; */
             padding: 10px 0px;
         }
 
@@ -57,16 +56,14 @@
                 warnObj.style.color = "#FF0000";
                 return false;
             }
-            else if (_name.length < 2) {
-                //warnObj.value = "姓名字數需大於2"
+            else if (_name.length < 2) {                
                 warnObj.innerHTML = "<img src=\"Images/cancel.png\" />姓名字數需大於2";
                 warnObj.style.color = "#FF0000";
                 return false;
             }
             for (var i = 0; i < _name.length; i++) {
                 var _char = _name.charAt(i);
-                if (_char.charCodeAt(0) < 0x4e00 || _char.charCodeAt(0) > 0x9fff) {
-                    //warnObj.value = "姓名需全部為中文字"
+                if (_char.charCodeAt(0) < 0x4e00 || _char.charCodeAt(0) > 0x9fff) {                    
                     warnObj.innerHTML = "<img src=\"Images/cancel.png\" />姓名需全部為中文字";
                     warnObj.style.color = "#FF0000";
                     return false;
@@ -129,7 +126,7 @@
             }
         }
         function CleanAlarm() {
-            var allSpan = document.getElementsByTagName("span");    //要全部的element>> .getElementByTagName("*")
+            var allSpan = document.getElementsByTagName("span");   
             for (var i = 0; i < allSpan.length; i++) {
                 var _span = allSpan[i];
                 _span.innerHTML = "";
@@ -169,7 +166,7 @@
                         <legend> Form Check </legend>
                         <div class="st1">
                             <label for="name1" class="t1">姓名: </label>
-                            <input type="text" id="name1" name="name1" autofocus size="16" onfocusout="CheckName()"> &nbsp;&nbsp;<span id="nameAlarm"></span><!--<input id="nameAlarm" style="border:0px; color:orangered;" readonly />-->
+                            <input type="text" id="name1" name="name1" autofocus size="16" onfocusout="CheckName()"> &nbsp;&nbsp;<span id="nameAlarm"></span>
                             <p>(1.不可空白  2.至少兩個字以上  3.必須全部為中文字)</p>
                         </div>
                         <div class="st1">
@@ -194,7 +191,7 @@
 
         <footer>
             <p style="color:lightgray">
-                <br><br><br>
+                <br><br><br><br><br><br><br><br><br>
             </p>
         </footer>
 
