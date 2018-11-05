@@ -17,7 +17,7 @@
         .mainSection {
             text-align: center;
         }
-            
+
 
             .mainSection div {
                 display: inline-block;
@@ -25,9 +25,22 @@
                 overflow: auto;
                 padding: 0px 10px;
             }
-        /*input {
-            padding: 5px 10px;
-        }*/
+
+        .content {
+            padding-bottom: 6em;
+        }
+        .btn {
+            padding:10px 20px;
+            margin-top:10px;
+            border:0px;
+            font-weight:700;            
+        }
+        .visible {            
+            visibility: visible;
+        }
+        .hidden {            
+            visibility: hidden;
+        }
     </style>
     <script>
         function TurnColor() {
@@ -45,6 +58,7 @@
         }
         function ShowResult() {
             document.getElementById("scoreboard").innerText = "獲得 " + this.value + " 個罐罐 (= ↀωↀ =)";
+            document.getElementById("scoreboard").className = "visible";
             for (var i = 1; i < 6; i++) {
                 var str = new String("img" + i);
                 document.getElementById(str).removeEventListener("mouseenter", ShowQty, false);
@@ -53,30 +67,19 @@
                 document.getElementById(str).removeEventListener("mouseleave", TurnGray, false);
                 document.getElementById(str).removeEventListener("click", ShowResult, false);
             }
-            ShowResetBtn();
+            document.getElementById("resetBtn").className = "btn visible"; 
         }
-        function ShowQty() { document.getElementById("scoreboard").innerText = this.value + " 個罐罐"; }
-        function HideQty() { document.getElementById("scoreboard").innerText = ""; }
-        function ShowResetBtn() {
-            var resetBtn = document.createElement("input");
-            resetBtn.type = "button";
-            resetBtn.value = "reset";
-            resetBtn.style.padding = "10px 20px";
-            resetBtn.style.marginTop = "10px";
-            resetBtn.style.border = "0px";
-            resetBtn.style.fontWeight = "700";
-            resetBtn.addEventListener("click", Init);
-            resetBtn.addEventListener("click", DeleteResetBtn);
-            document.getElementById("scoreboard").insertAdjacentElement("afterend", resetBtn);
+        function ClickResetBtn() {            
+            document.getElementById("resetBtn").className = "btn hidden";
+            document.getElementById("scoreboard").className = "hidden";
+            Init();
         }
-        function DeleteResetBtn() {
-            HideQty();
-            for (var i = 1; i < 6; i++) {
-                var str = new String("img" + i);
-                document.getElementById(str).className = "gray";
-            }
-            this.remove();
+        function ShowQty() {
+            document.getElementById("scoreboard").innerText = this.value + " 個罐罐";
+            document.getElementById("scoreboard").className = "visible";
         }
+        function HideQty() { document.getElementById("scoreboard").className = "hidden"; }
+                
         function Init() {
             for (var i = 1; i < 6; i++) {
                 var str = new String("img" + i);
@@ -87,7 +90,11 @@
                 document.getElementById(str).addEventListener("mouseleave", TurnGray, false);
                 document.getElementById(str).addEventListener("click", ShowResult, false);
             }
-
+            document.getElementById("resetBtn").addEventListener("click", ClickResetBtn);
+            for (var i = 1; i < 6; i++) {
+                var str = new String("img" + i);
+                document.getElementById(str).className = "gray";
+            }
         }
         document.addEventListener("DOMContentLoaded", Init, false);
     </script>
@@ -122,15 +129,16 @@
                         <img id="img5" class="gray" src="Images/canned-food.png" width="100" />
                     </div>
                     <h2 id="scoreboard"></h2>
+                    <input class="btn hidden" type="button" id="resetBtn" value="reset"  />
                 </section>
             </article>
         </div>
 
-        <!--<footer>
+        <footer>
             <p style="color:lightgray">
-                E-mail:b01504074@gmail.com &nbsp; MSIT12003
+                <br><br><br>
             </p>
-        </footer>-->
+        </footer>
 
     </div>
 </body>
