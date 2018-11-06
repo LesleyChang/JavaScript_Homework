@@ -28,13 +28,30 @@
             return await (await fetch(url)).text();    //Not Supported in IE
         }
         async function SelectChange() {
-            document.getElementById("idTextArea").innerHTML = await fetchHtmlAsText(this.value);
+            //document.getElementById("idTextArea").innerHTML = await fetchHtmlAsText(this.value);
+            var _http = new XMLHttpRequest();
+            _http.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("idTextArea").innerHTML =
+                        this.responseText;
+                }
+            };
+            _http.open("GET",this.value, true);
+            _http.send();
         }
         document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("idSelect").addEventListener("change", SelectChange);
         });
         window.addEventListener("load", async function () {
-            document.getElementById("idTextArea").innerHTML = await fetchHtmlAsText("index_P1_multi-table.html");
+            var _http = new XMLHttpRequest();
+            _http.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("idTextArea").innerHTML =
+                        this.responseText;
+                }
+            };
+            _http.open("GET", "index_P1_multi-table.html", true);
+            _http.send();
         });
 
     </script>
@@ -43,7 +60,7 @@
 <body>
     <div class="content">
         <article>
-            <h2>Source Code</h2>
+            <h2>Source Code<span style="font-size:14px;">&nbsp;&nbsp;(請以localhost檢視)</span></h2>
             <select id="idSelect" style="font-family:微軟正黑體;">
                 <option value="index_P1_multi-table.html">九九乘法表</option>
                 <option value="index_P2_form.html">表單欄位驗證</option>
